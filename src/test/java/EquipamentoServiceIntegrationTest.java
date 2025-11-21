@@ -95,9 +95,9 @@ public class EquipamentoServiceIntegrationTest {
     void deveCadastrarEquipamento() throws SQLException {
 
         var equipamento = new Equipamento(
-            "FRESA",
-            "CÓDIGOTESTE",
-            "SETORTESTE"
+                "FRESA",
+                "CÓDIGOTESTE",
+                "SETORTESTE"
         );
         Equipamento equipamentoNovo = equipamentoService.criarEquipamento(equipamento);
 
@@ -113,6 +113,7 @@ public class EquipamentoServiceIntegrationTest {
                      FROM Equipamento WHERE id =
                      """ + equipamentoNovo.getId())) {
 
+            assertTrue(rs.next());
             assertEquals("FRESA", rs.getString("nome"));
             assertEquals("CÓDIGOTESTE", rs.getString("numeroDeSerie"));
             assertEquals("SETORTESTE", rs.getString("areaSetor"));
@@ -156,7 +157,7 @@ public class EquipamentoServiceIntegrationTest {
     @DisplayName("Deve retornar exception quando id nao existe")
     void deveRetornarExcepitonQuandoIdNaoExiste() throws SQLException {
         RuntimeException e = assertThrows(RuntimeException.class, () -> {
-           equipamentoService.buscarEquipamentoPorId(999L);
+            equipamentoService.buscarEquipamentoPorId(999L);
         });
 
         assertEquals("Equipamento não encontrado!", e.getMessage());
