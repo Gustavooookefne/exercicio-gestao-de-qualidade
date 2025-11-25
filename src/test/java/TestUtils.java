@@ -9,9 +9,15 @@ public class TestUtils {
         try (Connection conn = Conexao.conectar();
              Statement stmt = conn.createStatement()) {
 
-            // --------------------------------------------------
-            // EQUIPAMENTO
-            // --------------------------------------------------
+            stmt.execute("""
+                    INSERT INTO Equipamento
+                    (id BIGINT AUTO_INCREMENT PRIMARY KEY, 
+                    nome VARCHAR(255) NOT NULL, 
+                    numeroDeSerie VARCHAR(100) NOT NULL UNIQUE, 
+                    areaSetor VARCHAR(100) NOT NULL, 
+                    statusOperacional VARCHAR(50) NOT NULL,
+                    """);
+
             stmt.execute("""
                 INSERT INTO Equipamento (nome, numeroDeSerie, areaSetor, statusOperacional)
                 VALUES
@@ -20,9 +26,17 @@ public class TestUtils {
                 ('Caldeira', 'CALD-001', 'Sala de Caldeiras', 'OPERACIONAL');
             """);
 
-            // --------------------------------------------------
-            // FALHAS
-            // --------------------------------------------------
+            stmt.execute("""
+                    INSERT INTO Falha 
+                    ( id BIGINT AUTO_INCREMENT PRIMARY KEY, 
+                    equipamentoId BIGINT NOT NULL, 
+                    dataHoraOcorrencia DATETIME NOT NULL, 
+                    descricao TEXT NOT NULL, 
+                    criticidade VARCHAR(50) NOT NULL, 
+                    status VARCHAR(50) NOT NULL, 
+                    tempoParadaHoras DECIMAL(10, 2) DEFAULT 0.00,
+                    """);
+
             stmt.execute("""
                 INSERT INTO Falha (equipamentoId, dataHoraOcorrencia, descricao, criticidade, status, tempoParadaHoras)
                 VALUES
@@ -31,9 +45,16 @@ public class TestUtils {
                 (2, NOW(), 'Falha média', 'MEDIA', 'ABERTA', 2.0);
             """);
 
-            // --------------------------------------------------
-            // AÇÃO CORRETIVA
-            // --------------------------------------------------
+            stmt.execute("""
+                    INSERT INTO AcaoCorretiva 
+                    ( id BIGINT AUTO_INCREMENT PRIMARY KEY, 
+                    falhaId BIGINT NOT NULL, 
+                    dataHoraInicio DATETIME NOT NULL, 
+                    dataHoraFim DATETIME NOT NULL, 
+                    responsavel VARCHAR(255) NOT NULL, 
+                    descricaoAcao TEXT NOT NULL,
+                    """);
+
             stmt.execute("""
                 INSERT INTO AcaoCorretiva (falhaId, dataHoraInicio, dataHoraFim, responsavel, descricaoAcao)
                 VALUES (2, NOW(), NOW(), 'Carlos', 'Reparo completo');

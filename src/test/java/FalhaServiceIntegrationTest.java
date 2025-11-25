@@ -92,8 +92,8 @@ public class FalhaServiceIntegrationTest {
             stmt.execute(SQL_TRUNCATE_EQUIP);
         }
 
-        // serviços reais
-        equipamentoService = new EquipamentoServiceImpl();
+
+
         falhaService = new FalhaServiceImpl(); // alunos criam
     }
 

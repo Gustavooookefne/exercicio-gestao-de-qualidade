@@ -78,9 +78,6 @@ public class RelatorioServiceTest {
             );
             """;
 
-
-
-
     // ---------------------------
     //  SQL: DROP
     // ---------------------------
