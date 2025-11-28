@@ -8,6 +8,14 @@ public class AcaoCorretivaServiceImpl implements AcaoCorretivaService{
 
     @Override
     public AcaoCorretiva registrarConclusaoDeAcao(AcaoCorretiva acao) throws SQLException {
-        return null;
+
+
+      try {
+
+
+      }catch (RuntimeException ex){
+        throw  new IllegalArgumentException("A Falha é Invalida");
+      }
+        return acao;
     }
 }

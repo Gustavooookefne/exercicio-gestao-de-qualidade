@@ -1,5 +1,6 @@
 package org.example.repository.falha;
 
+import com.mysql.cj.log.Log;
 import org.example.database.Conexao;
 import org.example.model.Equipamento;
 import org.example.model.Falha;
@@ -50,12 +51,12 @@ public class FalhaRepository {
         return falha;
     }
 
-    public List<Falha> findAllWithFilters() throws SQLException {
+    public List<Falha> encontrarFalha() throws SQLException{
 
         List<Falha> falhas = new ArrayList<>();
 
         String query = """
-                SELECT
+                SELECT 
                 id,
                 equipamentoId,
                 dataHoraOcorrencia,
@@ -65,18 +66,18 @@ public class FalhaRepository {
                 tempoParadaHoras
                 FROM Falha
                 WHERE
-                criticidade = ? AND status = ?;
-        """;
+                status = ? AND criticidade = ?
+                """;
 
-        try (Connection con = Conexao.conectar();
-             PreparedStatement stmt = con.prepareStatement(query)) {
+        try (Connection conn = Conexao.conectar();
+        PreparedStatement stmt = conn.prepareStatement(query)){
 
-            stmt.setString(1, "CRITICA");
-            stmt.setString(2, "ABERTA");
+            stmt.setString(1, "ABERTA");
+            stmt.setString(2, "CRITICA");
 
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next()){
 
                 Falha falha = new Falha(
                         rs.getLong("id"),
@@ -87,11 +88,12 @@ public class FalhaRepository {
                         rs.getString("status"),
                         rs.getBigDecimal("tempoParadaHoras")
                 );
-
                 falhas.add(falha);
             }
         }
-
         return falhas;
     }
+
+
+
 }

@@ -26,7 +26,7 @@ public class EquipamentoServiceImpl implements EquipamentoService{
 
         System.out.println("Buscando Equipamento por ID: " + id);
 
-        Equipamento equipamento = repository.findById(id);
+        Equipamento equipamento = repository.BuscarPorId(id);
 
         if (equipamento == null) {
 

@@ -43,7 +43,7 @@ public class EquipamentoRepository {
         return equipamento;
     }
 
-    public Equipamento findById(Long id) throws SQLException {
+    public Equipamento BuscarPorId (Long id) throws SQLException {
 
         String query = """
                 SELECT

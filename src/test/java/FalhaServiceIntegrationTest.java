@@ -1,5 +1,7 @@
 import org.example.database.Conexao;
 import org.example.model.Falha;
+import org.example.repository.equipamento.EquipamentoRepository;
+import org.example.repository.falha.FalhaRepository;
 import org.example.service.equipamento.EquipamentoService;
 import org.example.service.equipamento.EquipamentoServiceImpl;
 import org.example.service.falha.FalhaService;
@@ -15,7 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Teste de Integração - FalhaService com Banco Real (Teste)")
 public class FalhaServiceIntegrationTest {
 
+    private FalhaRepository falhaRepository;
     private FalhaService falhaService;
+    private EquipamentoRepository equipamentoRepository;
     private EquipamentoService equipamentoService;
 
     /** SQL — Criação da tabela Falha */
@@ -92,9 +96,13 @@ public class FalhaServiceIntegrationTest {
             stmt.execute(SQL_TRUNCATE_EQUIP);
         }
 
+        falhaRepository = new FalhaRepository();
+        equipamentoRepository = new EquipamentoRepository();
+        equipamentoService = new EquipamentoServiceImpl(equipamentoRepository);
 
 
-        falhaService = new FalhaServiceImpl(); // alunos criam
+        falhaService = new FalhaServiceImpl(falhaRepository, equipamentoService);
+
     }
 
     // -----------------------------------------------------------------------------------
