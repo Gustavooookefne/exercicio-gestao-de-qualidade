@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface FalhaService {
 
-    Falha registrarNovaFalha(Falha falha) throws SQLException;
+    Falha registrarNovaFalha(Falha falha, String resolvida) throws SQLException;
 
     List<Falha> buscarFalhasCriticasAbertas() throws SQLException;
+
+    Falha buscarFalhaPorId (Long id) throws SQLException;
 }

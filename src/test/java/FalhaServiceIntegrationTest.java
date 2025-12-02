@@ -138,7 +138,7 @@ public class FalhaServiceIntegrationTest {
         falha.setTempoParadaHoras(BigDecimal.ZERO);
 
         // ACT
-        Falha falhaSalva = falhaService.registrarNovaFalha(falha);
+        Falha falhaSalva = falhaService.registrarNovaFalha(falha, "RESOLVIDA");
 
         // ASSERT
         assertNotNull(falhaSalva.getId());
@@ -172,7 +172,7 @@ public class FalhaServiceIntegrationTest {
 
         IllegalArgumentException ex = assertThrows(
                 IllegalArgumentException.class,
-                () -> falhaService.registrarNovaFalha(falha)
+                () -> falhaService.registrarNovaFalha(falha, "RESOLVIDA")
         );
 
         assertEquals("Equipamento não encontrado!", ex.getMessage());

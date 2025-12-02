@@ -19,7 +19,7 @@ public class FalhaServiceImpl implements FalhaService{
     }
 
     @Override
-    public Falha registrarNovaFalha(Falha falha) throws SQLException{
+    public Falha registrarNovaFalha(Falha falha, String resolvida) throws SQLException{
 
         Equipamento equipamento = achaEquipamentoOuErro(falha.getEquipamentoId());
 
@@ -50,7 +50,14 @@ public class FalhaServiceImpl implements FalhaService{
         return repository.encontrarFalha();
     }
 
+    @Override
+    public Falha buscarFalhaPorId(Long id) throws SQLException {
+        return null;
+    }
+
+
     public Falha verificarFalha (long id) throws SQLException{
 
+        return null;
     }
 }
